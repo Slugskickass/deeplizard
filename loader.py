@@ -19,17 +19,17 @@ train_set = torchvision.datasets.FashionMNIST(
     ])
 )
 
-train_loader = torch.utils.data.DataLoader(train_set
-    ,batch_size=1000
-    ,shuffle=True
+display_loader = torch.utils.data.DataLoader(train_set
+    ,batch_size=10
 )
-# The length of the data set
-print(len(train_set))
-# The targets of the data set
-print(train_set.targets)
 
-# This gets each peice of data
-sample = next(iter(train_set))
-print(len(sample))
-image = sample[0]
-label = sample[1]
+batch = next(iter(display_loader))
+print('len:', len(batch))
+images, labels = batch
+print('types:', type(images), type(labels))
+print('shapes:', images.shape, labels.shape)
+
+grid = torchvision.utils.make_grid(images, nrow=10)
+plt.figure(figsize=(15,15))
+plt.imshow(np.transpose(grid, (1,2,0)))
+plt.show()
